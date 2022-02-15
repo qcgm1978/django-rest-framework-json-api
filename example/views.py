@@ -1,3 +1,4 @@
+from django.http import HttpResponse, JsonResponse
 import rest_framework.exceptions as exceptions
 import rest_framework.parsers
 import rest_framework.renderers
@@ -291,3 +292,6 @@ class LabResultViewSet(ReadOnlyModelViewSet):
         "__all__": [],
         "author": ["author__bio", "author__entries"],
     }
+def index(request):
+    source = "Hello, world. You're at the polls index."
+    return HttpResponse(source)

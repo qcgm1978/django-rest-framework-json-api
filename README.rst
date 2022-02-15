@@ -147,8 +147,10 @@ installed and activated:
     $ pip install -Ur requirements.txt
     $ django-admin migrate --settings=example.settings
     $ django-admin loaddata drf_example --settings=example.settings
-    $ django-admin runserver --settings=example.settings
 
+    $ django-admin runserver --settings=example.settings
+    # or:
+    $ python manage.py runserver
 Browse to
 
 * http://localhost:8000 for the list of available collections (in a non-JSON:API format!),

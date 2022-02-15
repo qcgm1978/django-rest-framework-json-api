@@ -6,7 +6,22 @@ the defaults.
 
 from django.conf import settings
 from django.core.signals import setting_changed
-
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = []
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-token',
+    'x-requested-with',
+]
 JSON_API_SETTINGS_PREFIX = "JSON_API_"
 
 DEFAULTS = {
@@ -56,3 +71,7 @@ def reload_json_api_settings(*args, **kwargs):
 
 
 setting_changed.connect(reload_json_api_settings)
+CORS_ORIGIN_WHITELIST = [
+'http://localhost:3000',
+'http://127.0.0.1:3000'
+]

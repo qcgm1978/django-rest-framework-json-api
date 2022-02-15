@@ -98,6 +98,7 @@ setup(
         "inflection>=0.5.0",
         "djangorestframework>=3.12,<3.14",
         "django>=2.2,<4.1",
+        "tox"
     ],
     extras_require={
         "django-polymorphic": ["django-polymorphic>=3.0"],

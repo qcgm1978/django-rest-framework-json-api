@@ -1,10 +1,11 @@
+from pickle import TRUE
 from django.conf import settings
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
 from rest_framework import routers
 from rest_framework.schemas import get_schema_view
-
 from rest_framework_json_api.schemas.openapi import SchemaGenerator
+from example import views
 
 from example.views import (
     AuthorRelationshipView,
@@ -35,6 +36,7 @@ router.register(r"project-types", ProjectTypeViewset)
 router.register(r"lab-results", LabResultViewSet)
 
 urlpatterns = [
+    path("index", views.index, name="index"),
     path("", include(router.urls)),
     re_path(
         r"^entries/(?P<entry_pk>[^/.]+)/suggested/$",
@@ -87,12 +89,13 @@ urlpatterns = [
         name="author-relationships",
     ),
     path(
-        "openapi",
+        "openapi/",
         get_schema_view(
             title="Example API",
             description="API for all things …",
             version="1.0.0",
             generator_class=SchemaGenerator,
+            public=TRUE,
         ),
         name="openapi-schema",
     ),

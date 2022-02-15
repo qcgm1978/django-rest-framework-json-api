@@ -422,7 +422,7 @@ class AutoSchema(drf_openapi.AutoSchema):
             parameters += self.get_filter_parameters(path, method)
         operation["parameters"] = parameters
         operation["tags"] = self.get_tags(path, method)
-
+        operation['Access-Control-Allow-Origin'] = '*'
         # get request and response code schemas
         if method == "GET":
             if is_list_view(path, method, self.view):

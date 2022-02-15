@@ -8,7 +8,22 @@ MEDIA_URL = "/media/"
 USE_TZ = False
 
 DATABASE_ENGINE = "sqlite3"
-
+ALLOWED_HOSTS = []
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+]
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-token',
+    'x-requested-with',
+    'x-csrftoken'
+]
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
@@ -29,6 +44,7 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django_filters",
     "tests",
+    'corsheaders',
 ]
 
 TEMPLATES = [
@@ -62,8 +78,12 @@ SECRET_KEY = "abc123"
 
 PASSWORD_HASHERS = ("django.contrib.auth.hashers.UnsaltedMD5PasswordHasher",)
 
-MIDDLEWARE = ("debug_toolbar.middleware.DebugToolbarMiddleware",)
-
+MIDDLEWARE = ("debug_toolbar.middleware.DebugToolbarMiddleware",'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+)
+# MIDDLEWARE_CLASSES = (
+    
+# )
 INTERNAL_IPS = ("127.0.0.1",)
 
 JSON_API_FORMAT_FIELD_NAMES = "camelize"
@@ -99,3 +119,4 @@ REST_FRAMEWORK = {
     ),
     "TEST_REQUEST_DEFAULT_FORMAT": "vnd.api+json",
 }
+CORS_ORIGIN_ALLOW_ALL = True
