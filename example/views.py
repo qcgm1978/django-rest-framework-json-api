@@ -28,6 +28,7 @@ from example.models import (
     Company,
     Entry,
     LabResults,
+    IndexResults,
     Project,
     ProjectType,
 )
@@ -44,6 +45,7 @@ from example.serializers import (
     LabResultsSerializer,
     ProjectSerializer,
     ProjectTypeSerializer,
+    IndexSerializer
 )
 
 HTTP_422_UNPROCESSABLE_ENTITY = 422
@@ -292,6 +294,6 @@ class LabResultViewSet(ReadOnlyModelViewSet):
         "__all__": [],
         "author": ["author__bio", "author__entries"],
     }
-def index(request):
+def get_index(self):
     source = "Hello, world. You're at the polls index."
     return HttpResponse(source)

@@ -11,17 +11,6 @@ ALLOWED_HOSTS = []
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
 ]
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-token',
-    'x-requested-with',
-]
 JSON_API_SETTINGS_PREFIX = "JSON_API_"
 
 DEFAULTS = {

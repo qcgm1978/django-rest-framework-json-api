@@ -1,4 +1,3 @@
-from pickle import TRUE
 from django.conf import settings
 from django.urls import include, path, re_path
 from django.views.generic import TemplateView
@@ -36,7 +35,11 @@ router.register(r"project-types", ProjectTypeViewset)
 router.register(r"lab-results", LabResultViewSet)
 
 urlpatterns = [
-    path("index", views.index, name="index"),
+    path(
+        "index",
+        views.get_index,
+        name="index"
+    ),
     path("", include(router.urls)),
     re_path(
         r"^entries/(?P<entry_pk>[^/.]+)/suggested/$",
@@ -92,10 +95,9 @@ urlpatterns = [
         "openapi/",
         get_schema_view(
             title="Example API",
-            description="API for all things …",
+            description="BCR Crawler APIs",
             version="1.0.0",
             generator_class=SchemaGenerator,
-            public=TRUE,
         ),
         name="openapi-schema",
     ),
@@ -112,6 +114,7 @@ urlpatterns = [
 if settings.DEBUG:
     import debug_toolbar
 
+    # Add django-debug-toolbar’s URLs to your project’s URLconf:
     urlpatterns = [
         path("__debug__/", include(debug_toolbar.urls)),
     ] + urlpatterns

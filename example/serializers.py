@@ -16,6 +16,7 @@ from example.models import (
     Company,
     Entry,
     LabResults,
+    IndexResults,
     Project,
     ProjectType,
     ResearchProject,
@@ -367,6 +368,12 @@ class LabResultsSerializer(serializers.ModelSerializer):
     class Meta:
         model = LabResults
         fields = ("date", "measurements", "author")
+class IndexSerializer(serializers.ModelSerializer):
+    included_serializers = {"author": AuthorSerializer}
+
+    class Meta:
+        model = IndexResults
+        fields = ("source",)
 
 
 class ProjectSerializer(serializers.PolymorphicModelSerializer):

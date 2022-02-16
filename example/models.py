@@ -168,7 +168,15 @@ class LabResults(models.Model):
 
     class Meta:
         ordering = ("id",)
-
+class IndexResults(models.Model):
+    # date = models.DateField()
+    # measurements = models.TextField()
+    source =lambda: "Hello, world. You're at the polls index."
+    class Meta:
+        ordering = ("id",)
+    # return source
+# class IndexResults._meta():
+#     concrete_model
 
 class Company(models.Model):
     name = models.CharField(max_length=100)

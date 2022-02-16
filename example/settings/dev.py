@@ -1,36 +1,24 @@
 import os
 
 SITE_ID = 1
-DEBUG = True
-
 MEDIA_ROOT = os.path.normcase(os.path.dirname(os.path.abspath(__file__)))
 MEDIA_URL = "/media/"
 USE_TZ = False
-
 DATABASE_ENGINE = "sqlite3"
 ALLOWED_HOSTS = []
 CORS_ALLOWED_ORIGINS = [
-    'http://localhost:3000',
+    "http://localhost:3000",
 ]
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'origin',
-    'user-agent',
-    'x-token',
-    'x-requested-with',
-    'x-csrftoken'
-]
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
         "NAME": "drf_example",
     }
 }
-
+# django-debug-toolbar
+# First, ensure that 'django.contrib.staticfiles' is in your INSTALLED_APPS setting, and configured properly:
+# Add "debug_toolbar" to your INSTALLED_APPS setting:
 INSTALLED_APPS = [
     "django.contrib.contenttypes",
     "django.contrib.staticfiles",
@@ -44,9 +32,10 @@ INSTALLED_APPS = [
     "debug_toolbar",
     "django_filters",
     "tests",
-    'corsheaders',
+    "corsheaders",
 ]
-
+STATIC_URL = "/static/"
+# Second, ensure that your TEMPLATES setting contains a DjangoTemplates backend whose APP_DIRS options is set to True:
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -69,26 +58,31 @@ TEMPLATES = [
         },
     },
 ]
-
-STATIC_URL = "/static/"
-
 ROOT_URLCONF = "example.urls"
-
 SECRET_KEY = "abc123"
-
 PASSWORD_HASHERS = ("django.contrib.auth.hashers.UnsaltedMD5PasswordHasher",)
-
-MIDDLEWARE = ("debug_toolbar.middleware.DebugToolbarMiddleware",'corsheaders.middleware.CorsMiddleware',
-    'django.middleware.common.CommonMiddleware',
+# The Debug Toolbar will only display when DEBUG = True in your project’s settings (see Show Toolbar Callback) and your IP address must also match an entry in your project’s INTERNAL_IPS setting (see 6. Configure Internal IPs). It will also only display if the MIME type of the response is either text/html or application/xhtml+xml and contains a closing </body> tag.
+DEBUG = True
+# The Debug Toolbar is shown only if your IP address is listed in Django’s INTERNAL_IPS setting. This means that for local development, you must add "127.0.0.1" to INTERNAL_IPS. You’ll need to create this setting if it doesn’t already exist in your settings module:
+INTERNAL_IPS = ("127.0.0.1",)
+# The Debug Toolbar is mostly implemented in a middleware. Add it to your MIDDLEWARE setting:
+MIDDLEWARE = (
+    "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.common.CommonMiddleware",
 )
 # MIDDLEWARE_CLASSES = (
-    
 # )
-INTERNAL_IPS = ("127.0.0.1",)
-
 JSON_API_FORMAT_FIELD_NAMES = "camelize"
 JSON_API_FORMAT_TYPES = "camelize"
 REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        # 'rest_framework.authentication.BasicAuthentication',
+        # 'rest_framework.authentication.SessionAuthentication',
+    ],
+    "DEFAULT_PERMISSION_CLASSES": [
+        # 'rest_framework.permissions.IsAuthenticated',
+    ],
     "PAGE_SIZE": 5,
     "EXCEPTION_HANDLER": "rest_framework_json_api.exceptions.exception_handler",
     "DEFAULT_PAGINATION_CLASS": "rest_framework_json_api.pagination.JsonApiPageNumberPagination",
@@ -114,9 +108,7 @@ REST_FRAMEWORK = {
         "rest_framework.filters.SearchFilter",
     ),
     "SEARCH_PARAM": "filter[search]",
-    "TEST_REQUEST_RENDERER_CLASSES": (
-        "rest_framework_json_api.renderers.JSONRenderer",
-    ),
+    "TEST_REQUEST_RENDERER_CLASSES": ("rest_framework_json_api.renderers.JSONRenderer",),
     "TEST_REQUEST_DEFAULT_FORMAT": "vnd.api+json",
 }
 CORS_ORIGIN_ALLOW_ALL = True
